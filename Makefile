@@ -1,7 +1,7 @@
 CC0 = gcc
 CC = $(CC0)
 LD = $(CC0)
-FLAGS1 = -g # -O3
+FLAGS1 = -O3
 FLAGS2 = -lm
 FLAGS3 = -std=c99 -Dlint -D__lint -Wall -Winline -Wno-deprecated -Wno-strict-overflow
 FLAGS = $(FLAGS1) $(FLAGS3)
