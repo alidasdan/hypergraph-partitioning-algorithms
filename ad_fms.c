@@ -24,9 +24,9 @@
 
 /* definitions */
 int nocells;           /* number of cells */
-int noparts;           /* number of partitions */
 int nonets;            /* number of nets */
 int nopins;            /* number of pins */
+int noparts;           /* number of partitions */
 int totcellsize;       /* total cell weight of the partition */
 int totnetsize;        /* total net weight of the partition */
 int cutsize;           /* cutsize of the partition */
