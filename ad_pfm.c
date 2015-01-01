@@ -78,8 +78,11 @@ int main(int argc, char *argv[])
     assert(cells_info != NULL);
     for (int i = 0; i < nocells; i++) {
         cells_info[i].mgain = (int *) calloc(noparts, sizeof(int));
+        assert(cells_info[i].mgain != NULL);
         cells_info[i].partb_ptr = (bnode_ptr_t *) calloc(noparts - 1, sizeof(bnode_ptr_t));
+        assert(cells_info[i].partb_ptr != NULL);
         cells_info[i].partb_gain_inx = (int *) calloc(noparts - 1, sizeof(int));
+        assert(cells_info[i].partb_gain_inx != NULL);
     }
 
     nets_t *nets = (nets_t *) calloc(nonets, sizeof(nets_t));
@@ -88,7 +91,9 @@ int main(int argc, char *argv[])
     assert(nets_info != NULL);
     for (int i = 0; i < nonets; i++) {
         nets[i].npartdeg = (int *) calloc(noparts, sizeof(int));
+        assert(nets[i].npartdeg != NULL);
         nets_info[i].npartdeg = (int *) calloc(noparts, sizeof(int));
+        assert(nets_info[i].npartdeg != NULL);
     }
 
     /* cells of nets */
@@ -106,7 +111,9 @@ int main(int argc, char *argv[])
     ind_t pop[MAX_POP];             
     for (int i = 0; i < MAX_POP; i++) {
         pop[i].chrom = (allele *) calloc(nocells, sizeof(allele));
+        assert(pop[i].chrom != NULL);
         pop[i].parts = (parts_t *) calloc(noparts, sizeof(parts_t));
+        assert(pop[i].parts != NULL);
     }
 
     /* selected cell */
@@ -119,6 +126,7 @@ int main(int argc, char *argv[])
 
     /* temp chrom */
     allele *tchrom = (allele *) calloc(nocells, sizeof(allele));
+    assert(tchrom != NULL);
 
     /* in read_graph, change tnoparts -> noparts & delete the line (D) */
     read_hgraph(fname, nocells, nonets, nopins, noparts,
