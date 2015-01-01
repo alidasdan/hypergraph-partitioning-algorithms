@@ -12,6 +12,8 @@
 ./ad_pfm.x ./input/hp1 2 2 1 123456 | grep Final | awk -v p="ad_pfm p1 2 2 1" -v t=1 -f utest.awk
 ./ad_pfm.x ./input/hp1 2 3 1 123456 | grep Final | awk -v p="ad_pfm p1 2 3 1" -v t=1 -f utest.awk
 
+./ad_sa1.x ./input/hp1 2 123456 | grep Final | awk -v p="ad_sa1 p1 2" -v t=1 -f utest.awk
+
 # testing each executable using input/hp9
 
 ./ad_fms.x ./input/hp9 2 123456 | grep Final | awk -v p="ad_fms p9 2" -v t=85 -f utest.awk
@@ -30,6 +32,9 @@
 ./ad_pfm.x ./input/hp9 3 2 1 123456 | grep Final | awk -v p="ad_pfm p9 3 2 1" -v t=75 -f utest.awk
 ./ad_pfm.x ./input/hp9 2 3 2 123456 | grep Final | awk -v p="ad_pfm p9 2 3 2" -v t=32 -f utest.awk
 ./ad_pfm.x ./input/hp9 3 3 2 123456 | grep Final | awk -v p="ad_pfm p9 3 3 2" -v t=58 -f utest.awk
+
+./ad_sa1.x ./input/hp9 2 123456 | grep Final | awk -v p="ad_sa1 p9 2" -v t=40 -f utest.awk
+./ad_sa1.x ./input/hp9 3 123456 | grep Final | awk -v p="ad_sa1 p9 3" -v t=56 -f utest.awk
 
 # EOF
 
