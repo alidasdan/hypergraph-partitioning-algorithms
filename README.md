@@ -4,8 +4,8 @@ hypergraph-partitioning-algorithms
 This package contains the multi-way hypergraph partitioning
 algorithms: FMS (Fiduccia-Mattheyses-Sanchis), PLM (Partitioning by
 Locked Moves), PFM (Partitioning by Free Moves), SA (Simulated
-Annealing), and RSA (Simulated Annealing with ratio cut model), as
-detailed in [DaAy97].
+Annealing - 2 versions), and RSA (Simulated Annealing with ratio cut
+model), as detailed in [DaAy97].
 
 TODO: SA and RSA will be added soon.
 
