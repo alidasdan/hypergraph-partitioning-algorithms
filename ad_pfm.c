@@ -21,9 +21,9 @@
 
 /* definitions */
 int nocells;           /* number of cells */
-int noparts;           /* number of partitions */
 int nonets;            /* number of nets */
 int nopins;            /* number of pins */
+int noparts;           /* number of partitions */
 int totcellsize;       /* total cell weight of the partition */
 int totnetsize;         /* total net weight of the partition */
 int cutsize;           /* cutsize of the partition */
@@ -120,9 +120,6 @@ int main(int argc, char *argv[])
     /* temp chrom */
     allele *tchrom = (allele *) calloc(nocells, sizeof(allele));
 
-    /* cache to speed up math heavy function evals */
-    eval_t *eval;
-
     /* in read_graph, change tnoparts -> noparts & delete the line (D) */
     read_hgraph(fname, nocells, nonets, nopins, noparts,
                 &totcellsize, &totnetsize, &max_cdeg, &max_ndeg,
@@ -140,15 +137,17 @@ int main(int argc, char *argv[])
                pop[0].parts[i].pcurr_size, pop[0].parts[i].pmax_size);
     }
 #endif
-
+    
+    /* bucketsize has impact on cutsize and runtime */
     float K;
     max_gain = max_cdeg * max_nweight;
     int bucketsize = 2 * max_gain + 1;
     if (bucketsize_factor > 0) {
-        /* bucketsize has impact on cutsize and runtime */
         bucketsize *= bucketsize_factor;
     }
-    eval = (eval_t *) calloc(2 * max_gain + 1, sizeof(eval_t));
+
+    /* cache to speed up math heavy function evals */
+    eval_t *eval = (eval_t *) calloc(2 * max_gain + 1, sizeof(eval_t));
     calculate_scale(nocells, noparts, max_gain, &K);
     fill_eval(max_gain, K, eval); 
 
