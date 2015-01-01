@@ -271,25 +271,24 @@ void update2(int flag,
         i++;
     }   /* while */
 
-    if (found) {
+    if (!found) return;
 
-        if (flag == False) {
-            cells_info[other_cell].mgain[dest_part] -= net_weight;
-        } else {
-            cells_info[other_cell].mgain[dest_part] += net_weight;
-        }
+    if (flag == False) {
+        cells_info[other_cell].mgain[dest_part] -= net_weight;
+    } else {
+        cells_info[other_cell].mgain[dest_part] += net_weight;
+    }
 
-        int mov_gain = calculate_gain(other_cell, other_part_no,
-                                      dest_part, cells_info);
-        int gain_inx = map_gain(mov_gain, max_gain);
-        int mapped_part_no = map_part_no(dest_part, other_part_no);
-        bnode_ptr_t tnode_ptr = delete_partb_node(False, mapped_part_no,
-                                                  &partb[other_part_no][mapped_part_no],
-                                                  &cells_info[other_cell]);
-        insert_partb_node(tnode_ptr, mapped_part_no, gain_inx,
-                          &partb[other_part_no][mapped_part_no],
-                          &cells_info[other_cell]);
-    }   /* if found */
+    int mov_gain = calculate_gain(other_cell, other_part_no,
+                                  dest_part, cells_info);
+    int gain_inx = map_gain(mov_gain, max_gain);
+    int mapped_part_no = map_part_no(dest_part, other_part_no);
+    bnode_ptr_t tnode_ptr = delete_partb_node(False, mapped_part_no,
+                                              &partb[other_part_no][mapped_part_no],
+                                              &cells_info[other_cell]);
+    insert_partb_node(tnode_ptr, mapped_part_no, gain_inx,
+                      &partb[other_part_no][mapped_part_no],
+                      &cells_info[other_cell]);
 }   /* update2 */
 
 void create_partb_nodes_of_cell(int noparts,
