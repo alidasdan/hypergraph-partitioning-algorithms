@@ -12,7 +12,7 @@
 #include "ad_readinput.h"
 #include "ad_partition.h"
 #include "ad_lib.h"
-#include "ad_lib_sa1.h"
+#include "ad_lib_sa.h"
 
 /* Simulated Annealing for Multiple-way Hypergraph Partitioning -
    based on the paper: Johnson et al., Optimization by Simulated
@@ -142,6 +142,7 @@ int main(int argc, char *argv[])
                 &max_cweight, &max_nweight,
                 cells, nets, cnets, ncells);
 
+    /* create the initial partition or solution */
     float off_ratio = (float) 0.1;   /* alpha in initial partitioning */
     create_partition(nocells, noparts, totcellsize, max_cweight, &off_ratio,
                      cells, nets, cnets, &pop[0]);
@@ -187,8 +188,11 @@ int main(int argc, char *argv[])
     prev_cutsize = -1;
     trialslimit = sizefactor * neigh_size;
     changeslimit = (int) (cutoff * sizefactor * neigh_size);
+
+    /* while not yet frozen */
     while (freezecount < freezelimit)  {
 
+        /* perform the following exploration trialslimit times */
         nochanges = notrials = 0;
         while ((notrials < trialslimit) && (nochanges < changeslimit)) {
             notrials++;
@@ -201,7 +205,14 @@ int main(int argc, char *argv[])
                 exit(1);
             }   /* if */
 
+            /* delta is the change in the cost function */
             delta = -scell[0].mov_gain;
+
+            /* if delta is negative, this change is a downhill move so
+               accept the new solution */
+            /* if delta is positive, this change is an uphill move so
+               accept with an ever decreasing probability that depends
+               on delta and the current temperature */
             if (((float) delta <= 0.0) ||
                 (((float) delta > 0.0) && 
                  (rand01() <= (float) exp((double) -delta / (double) temperature)))) {
@@ -222,7 +233,7 @@ int main(int argc, char *argv[])
                              cells_info, pop[0].chrom);
                 cutsize += delta;
 
-                /* update current champion solution */
+                /* update the current champion solution */
                 if (cutsize < best_cutsize) {
                     changed = True;
                     best_cutsize = cutsize;
@@ -230,7 +241,7 @@ int main(int argc, char *argv[])
                     copy_nets(nonets, noparts, nets, best_nets);
                 }   /* if */
 
-            }   /* if */
+            }   /* if the selected move is accepted */
         }   /* while */
 
 #ifdef DEBUG1
@@ -239,7 +250,8 @@ int main(int argc, char *argv[])
                (100.0 * (float) nochanges / notrials), temperature);
 #endif
 
-        /* update variables of SA algorithm */
+        /* reduce the temperature and update the other variables of SA
+           algorithm */
         temperature = tempfactor * temperature; 
         if (changed) {
             freezecount = 0;
@@ -254,7 +266,9 @@ int main(int argc, char *argv[])
         } else {
             same = 0;
             prev_cutsize = cutsize;
-        }   /* else */
+        }
+        /* if has seen the same solution enough number of times, it is
+           time to quit */
         if (same >= samecount) { 
             freezecount = freezelimit;  /* exit */
         }
@@ -268,15 +282,16 @@ int main(int argc, char *argv[])
 
     }   /* while */ 
 
+#ifdef DEBUG1
     printf("Why : same=%d accept rate=%f\n", same, (float) nochanges / notrials);
+#endif
+
     printf("pass_no = %d Final cutsize = %d Check cutsize = %d\n",
            pass_no, best_cutsize, 
-           find_cut_size(nonets, noparts, totnetsize, 
-                         best_nets, &best_pop[0]));
+           find_cut_size(nonets, noparts, totnetsize, best_nets, &best_pop[0]));
 
-    /* final output */
-    copy_pop(nocells, noparts, pop, best_pop);
-    copy_nets(nonets, noparts, nets, best_nets);
+    /* copy_pop(nocells, noparts, pop, best_pop); */
+    /* copy_nets(nonets, noparts, nets, best_nets); */
 
 #ifdef DEBUG1
     printf("Final : Part_no min_size curr_size max_size\n");
@@ -313,4 +328,6 @@ int main(int argc, char *argv[])
     }
 
     return (0);
-}   /* main */
+}   /* main-sa1 */
+
+/* EOF */
