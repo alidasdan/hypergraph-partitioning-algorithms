@@ -7,7 +7,7 @@ Locked Moves), PFM (Partitioning by Free Moves), SA (Simulated
 Annealing - 2 versions), and RSA (Simulated Annealing with ratio cut
 model), as detailed in [DaAy97].
 
-TODO: SA and RSA will be added soon.
+TODO: RSA will be added soon.
 
 ## THE HYPERGRAPH PARTITIONING PROBLEM
 
