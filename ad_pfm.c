@@ -299,6 +299,6 @@ int main(int argc, char *argv[])
     cfree(eval);
 
     return (0);
-}
+}  /* main_pfm */
 
 /* EOF */
