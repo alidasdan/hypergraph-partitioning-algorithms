@@ -13,6 +13,7 @@ DEPS_PLM = ad_lib_plm.h ad_defs.h $(DEPS_COMMON)
 DEPS_PFM = ad_lib_pfm.h ad_defs.h $(DEPS_COMMON)
 DEPS_SA1 = ad_lib_sa.h ad_defs.h $(DEPS_COMMON)
 DEPS_SA2 = $(DEPS_SA1)
+DEPS_RSA = $(DEPS_SA1)
 
 OBJS = $(patsubst %.h,%.o,$(DEPS_COMMON))
 OBJS_FMS = $(OBJS) ad_lib_fms.o
@@ -20,8 +21,9 @@ OBJS_PLM = $(OBJS) ad_lib_plm.o
 OBJS_PFM = $(OBJS) ad_lib_pfm.o
 OBJS_SA1 = $(OBJS) ad_lib_sa.o
 OBJS_SA2 = $(OBJS_SA1)
+OBJS_RSA = $(OBJS_SA1)
 
-all: ad_fms ad_plm ad_pfm ad_sa1 ad_sa2
+all: ad_fms ad_plm ad_pfm ad_sa1 ad_sa2 ad_rsa
 
 ad_bucketio.o: ad_bucketio.c ad_bucketio.h ad_defs.h
 	$(CC) $(FLAGS) -c -o $@ $<
@@ -70,6 +72,9 @@ ad_sa1: ad_sa1.c $(DEPS_SA1) $(OBJS_SA1)
 
 ad_sa2: ad_sa2.c $(DEPS_SA2) $(OBJS_SA2)
 	$(CC) $(FLAGS) -o $@.x $< $(OBJS_SA2) $(FLAGS2)
+
+ad_rsa: ad_rsa.c $(DEPS_RSA) $(OBJS_RSA)
+	$(CC) $(FLAGS) -o $@.x $< $(OBJS_RSA) $(FLAGS2)
 
 # Testing:
 test:
