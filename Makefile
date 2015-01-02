@@ -7,17 +7,21 @@ FLAGS3 = -std=c99 -Dlint -D__lint -Wall -Winline -Wno-deprecated -Wno-strict-ove
 FLAGS = $(FLAGS1) $(FLAGS3)
 
 DEPS_COMMON = ad_bucketio.h ad_fileio.h ad_lib.h ad_partition.h ad_print.h ad_random.h ad_readinput.h 
+
 DEPS_FMS = ad_lib_fms.h ad_defs.h $(DEPS_COMMON)
 DEPS_PLM = ad_lib_plm.h ad_defs.h $(DEPS_COMMON)
 DEPS_PFM = ad_lib_pfm.h ad_defs.h $(DEPS_COMMON)
-DEPS_SA1 = ad_lib_sa1.h ad_defs.h $(DEPS_COMMON)
+DEPS_SA1 = ad_lib_sa.h ad_defs.h $(DEPS_COMMON)
+DEPS_SA2 = $(DEPS_SA1)
+
 OBJS = $(patsubst %.h,%.o,$(DEPS_COMMON))
 OBJS_FMS = $(OBJS) ad_lib_fms.o
 OBJS_PLM = $(OBJS) ad_lib_plm.o
 OBJS_PFM = $(OBJS) ad_lib_pfm.o
-OBJS_SA1 = $(OBJS) ad_lib_sa1.o
+OBJS_SA1 = $(OBJS) ad_lib_sa.o
+OBJS_SA2 = $(OBJS_SA1)
 
-all: ad_fms ad_plm ad_pfm ad_sa1
+all: ad_fms ad_plm ad_pfm ad_sa1 ad_sa2
 
 ad_bucketio.o: ad_bucketio.c ad_bucketio.h ad_defs.h
 	$(CC) $(FLAGS) -c -o $@ $<
@@ -37,7 +41,7 @@ ad_lib_plm.o: ad_lib_plm.c ad_lib_plm.h ad_lib.h ad_bucketio.h ad_defs.h
 ad_lib_pfm.o: ad_lib_pfm.c ad_lib_pfm.h ad_lib.h ad_bucketio.h ad_defs.h
 	$(CC) $(FLAGS) -c -o $@ $< $(FLAGS2)
 
-ad_lib_sa1.o: ad_lib_sa1.c ad_lib_sa1.h ad_lib.h ad_bucketio.h ad_defs.h
+ad_lib_sa.o: ad_lib_sa.c ad_lib_sa.h ad_lib.h ad_bucketio.h ad_defs.h
 	$(CC) $(FLAGS) -c -o $@ $< $(FLAGS2)
 
 ad_partition.o: ad_partition.c ad_partition.h ad_defs.h ad_fileio.h ad_random.h
@@ -63,6 +67,9 @@ ad_pfm: ad_pfm.c $(DEPS_PFM) $(OBJS_PFM)
 
 ad_sa1: ad_sa1.c $(DEPS_SA1) $(OBJS_SA1)
 	$(CC) $(FLAGS) -o $@.x $< $(OBJS_SA1) $(FLAGS2)
+
+ad_sa2: ad_sa2.c $(DEPS_SA2) $(OBJS_SA2)
+	$(CC) $(FLAGS) -o $@.x $< $(OBJS_SA2) $(FLAGS2)
 
 # Testing:
 test:
