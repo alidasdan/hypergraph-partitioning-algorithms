@@ -290,9 +290,6 @@ int main(int argc, char *argv[])
            pass_no, best_cutsize, 
            find_cut_size(nonets, noparts, totnetsize, best_nets, &best_pop[0]));
 
-    /* copy_pop(nocells, noparts, pop, best_pop); */
-    /* copy_nets(nonets, noparts, nets, best_nets); */
-
 #ifdef DEBUG1
     printf("Final : Part_no min_size curr_size max_size\n");
     for (int i = 0; i < noparts; i++) {
