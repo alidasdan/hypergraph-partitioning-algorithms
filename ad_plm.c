@@ -289,6 +289,6 @@ int main(int argc, char *argv[])
     cfree(tchrom);
 
     return (0);
-}
+}  /* main-plm */
 
 /* EOF */
