@@ -26,7 +26,8 @@ int select_cell(int nocells,
         nochecks++;
         int from = tchrom[cell_no]; 
         int to = find_to_part(noparts, cell_no, from, cells, parts);
-        if (to < 0) {  /* no directions for this cell are feasible, so try another */
+        /* no directions for this cell are feasible, so try another */
+        if ((to < 0) || (parts[from].pmax_cells < 1)) {  
             cell_no = (cell_no + 1) % nocells;
         } else {
             selected = True;
