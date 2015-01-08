@@ -52,9 +52,7 @@ minimum. For more details, please refer to [DaAy97].
 
 I originally developed this package in C during my MSc study (around
 1991-1993). Before putting this package on github, I converted my code
-to ANSI C (c99) and cleaned it a bit. For very large inputs, it is a
-good idea to convert all variable-length arrays into dynamically
-allocated arrays.
+to ANSI C (c99) and cleaned it quite a bit. 
 
 In my code, you may notice some biologically inspired names such as
 'population', 'chromosome', 'allele', etc. These names actually come
@@ -64,7 +62,8 @@ on a hypercube connected parallel computer (from Intel). Once I
 discovered the limitations of the locking mechanism, I changed my
 research direction towards what would become PLM and PFM. By the way,
 I did still work on genetic algorithms but in a different setting
-(unofficially doing another MSc thesis in the process).
+(applying genetic algorithms to synthesize unsupervised learning
+algorithms).
 
 This package is available on an "as is" basis. I do not say or imply
 that it will be useful for whatever you want to do with it. It may
@@ -74,24 +73,31 @@ charge in academic research and teaching. For any commercial use,
 contact Ali Dasdan at ali_dasdan@yahoo.com. See the COPYRIGHT section
 below.
 
-## HOW TO COMPILE AND BUILD
+## DIRECTORY STRUCTURE
 
-Type 'make' (or 'gmake') to build all executables. The executables are
-all have .x extension: ad_fms.x, ad_plm.x, ad_pfm.x.
+At the top level, you see two directories: 'src' and 'input'. 'src'
+contains all the source files and 'input' contains the input
+hypergraphs used for testing the executables. Under 'src', there is
+one directory, called 'share', for the shared source files as well as
+one directory for each algorithm: 'fms', 'plm', 'pfm', and 'sa'. Note
+that there will be three executables under the 'sa' directory, one for
+each version of simulated annealing.
 
-With no targets following the make command, the following executables
-will be generated:
-- 'ad_fms.x'
-- 'ad_plm.x'
-- 'ad_pfm.x;
+## HOW TO BUILD
+
+Under 'src', type 'make' (or 'gmake') to build each executable under
+its own directory. The executables are all have .x extension:
+ad_fms.x, ad_plm.x, ad_pfm.x, ad_sa1.x, ad_sa2.x, and ad_rsa.x.
+
 
 # HOW TO RUN
 
-Type the name of one of the executables in your command line to get
-the usage information. At minimum, each executable requires the input
-hypergraph and the number of parts to partition the hypergraph. PLM
-and PFM require additional parameters to create different versions of
-them, which trade off runtime for partition quality.
+Go to the respective directory for an algorithm and type the name of
+one of the executables in your command line to get the usage
+information. At minimum, each executable requires the input hypergraph
+and the number of parts to partition the hypergraph. PLM and PFM
+require additional parameters to create different versions of them,
+which trade off runtime for partition quality.
 
 For example, a run of FMS (in 'ad_fms.x') to partition the input
 hypergraph 'p9' into two parts will produce this output:
@@ -111,8 +117,14 @@ validating.
 
 ## HOW TO TEST
 
-Type 'make test' to test each executable on the input hypergraphs under the
-'input' directory. The result will be a 'pass' or a 'fail'.
+Under 'src', type 'make test' to test each executable on the input
+hypergraphs under the 'input' directory. The result will be a 'pass'
+or a 'fail'.
+
+## HOW TO CLEAN
+
+Under 'src', type 'make clean' to clean all temporary files including
+the object files and the executables.
 
 ## INPUT FILE FORMAT
 
@@ -164,6 +176,7 @@ work.
  number = {2},
  year = {1997},
  pages = {169-178},
+ url = {http://yoksis.bilkent.edu.tr/doi_getpdf/articles/10.1109-43.573831.pdf},
  }
 ```
 
