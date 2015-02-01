@@ -1,9 +1,9 @@
 
 /* COPYRIGHT C 1991- Ali Dasdan */ 
 
-#include "../share/ad_defs.h"
-#include "../share/ad_bucketio.h"
-#include "../share/ad_lib.h"
+#include "ad_defs.h"
+#include "ad_bucketio.h"
+#include "ad_lib.h"
 #include "ad_lib_fms.h"
 
 /* map a given mov_gain into index to a bucket array */

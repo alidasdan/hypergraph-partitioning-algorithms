@@ -6,12 +6,12 @@
 #include <string.h>
 #include <math.h>
 #include <malloc.h>
-#include "../share/ad_defs.h"
-#include "../share/ad_random.h"
-#include "../share/ad_fileio.h"
-#include "../share/ad_readinput.h"
-#include "../share/ad_partition.h"
-#include "../share/ad_lib.h"
+#include "ad_defs.h"
+#include "ad_random.h"
+#include "ad_fileio.h"
+#include "ad_readinput.h"
+#include "ad_partition.h"
+#include "ad_lib.h"
 #include "ad_lib_sa.h"
 
 /* Simulated Annealing for Multiple-way Hypergraph Partitioning -
@@ -19,43 +19,42 @@
    NP-complete problems; a performance study of the graph bisectioning
    problem, Complex Systems 2, 1989. */
 
-/* partitioning variables */
-int nocells;           /* number of cells */
-int nonets;            /* number of nets */
-int nopins;            /* number of pins */
-int noparts;           /* number of partitions */
-int totcellsize;       /* total cell weight of the partition */
-int totnetsize;        /* total net weight of the partition */
-int cutsize;           /* cutsize of the partition */
-int max_gain;          /* max gain of a cell */
-int max_cdeg;          /* max density of a cell */
-int max_ndeg;          /* max density of a net */
-int max_cweight;       /* max cell weight */
-int max_nweight;       /* max net weight */
-int mov_count;         /* count of total moves */
-
-/* SA algorithm variables */
-float costsum;         /* sum of cutsizes during a temperature length */
-float cost2sum;        /* sum of squares of cutsizes during a temperature length */
-float percentchanges;  /* percentage of accepted moves (= changes) */
-float costvariance;    /* variance of cutsizes (= cost) */ 
-float temperature;     /* temperature in SA alg. */
-float tempfactor;      /* cooling ratio */
-int templength;        /* number of runs until equilibrium at a certain temperature */
-int nochanges;         /* number of accepted states */
-int notrials;          /* number of tried states */
-int selected;          /* set if a feasible move is found */
-int changed;           /* set if a state is accepted */ 
-int delta;             /* cost difference between the last two states */
-int nouphills;         /* number of uphill moves */
-int frozen;            /* set if the system is frozen - after all three regions */
-int region2;           /* flags to identify the regions during entire run of SA */
-int region3;
-int region4;
-int pass_no;           /* pass number */
-
 int main(int argc, char *argv[])
 {
+    /* partitioning variables */
+    int nocells;           /* number of cells */
+    int nonets;            /* number of nets */
+    int nopins;            /* number of pins */
+    int noparts;           /* number of partitions */
+    int totcellsize;       /* total cell weight of the partition */
+    int totnetsize;        /* total net weight of the partition */
+    int cutsize;           /* cutsize of the partition */
+    int max_gain;          /* max gain of a cell */
+    int max_cdeg;          /* max density of a cell */
+    int max_ndeg;          /* max density of a net */
+    int max_cweight;       /* max cell weight */
+    int max_nweight;       /* max net weight */
+
+    /* SA algorithm variables */
+    float costsum;         /* sum of cutsizes during a temperature length */
+    float cost2sum;        /* sum of squares of cutsizes during a temperature length */
+    float percentchanges;  /* percentage of accepted moves (= changes) */
+    float costvariance;    /* variance of cutsizes (= cost) */ 
+    float temperature;     /* temperature in SA alg. */
+    float tempfactor;      /* cooling ratio */
+    int templength;        /* number of runs until equilibrium at a certain temperature */
+    int nochanges;         /* number of accepted states */
+    int notrials;          /* number of tried states */
+    int selected;          /* set if a feasible move is found */
+    int changed;           /* set if a state is accepted */ 
+    int delta;             /* cost difference between the last two states */
+    int nouphills;         /* number of uphill moves */
+    int frozen;            /* set if the system is frozen - after all three regions */
+    int region2;           /* flags to identify the regions during entire run of SA */
+    int region3;
+    int region4;
+    int pass_no;           /* pass number */
+
     if (argc < 3) {
         printf("\nUsage: %s InputFileName NoParts [Seed]\n", argv[0]);
         exit(1);
@@ -265,6 +264,8 @@ int main(int argc, char *argv[])
 #endif
 
         if (changed) {
+            tempfactor = 0.95;
+
             if (region2) {   /* when in region2 of the run: heating up */
                 costvariance = cost2sum / nochanges - 
                     ((costsum * costsum) / (nochanges * nochanges));

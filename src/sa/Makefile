@@ -4,17 +4,18 @@ LD = $(CC0)
 FLAGS1 = -O3
 FLAGS2 = -lm
 FLAGS3 = -std=c99 -Dlint -D__lint -Wall -Winline -Wno-deprecated -Wno-strict-overflow
-FLAGS = $(FLAGS1) $(FLAGS3)
+DIR_H = ../share
+FLAGS = $(FLAGS1) $(FLAGS3) -I$(DIR_H)
 
-DEPS_SHARE = ../share/ad_bucketio.h \
-	../share/ad_fileio.h \
-	../share/ad_lib.h \
-	../share/ad_partition.h \
-	../share/ad_print.h \
-	../share/ad_random.h \
-	../share/ad_readinput.h 
+DEPS_SHARE = $(DIR_H)/ad_bucketio.h \
+	$(DIR_H)/ad_fileio.h \
+	$(DIR_H)/ad_lib.h \
+	$(DIR_H)/ad_partition.h \
+	$(DIR_H)/ad_print.h \
+	$(DIR_H)/ad_random.h \
+	$(DIR_H)/ad_readinput.h 
 
-DEPS_SA1 = ad_lib_sa.h ../share/ad_defs.h $(DEPS_SHARE)
+DEPS_SA1 = ad_lib_sa.h $(DIR_H)/ad_defs.h $(DEPS_SHARE)
 DEPS_SA2 = $(DEPS_SA1)
 DEPS_RSA = $(DEPS_SA1)
 
@@ -25,7 +26,7 @@ OBJS_RSA = $(OBJS_SA1)
 
 all: ad_sa1 ad_sa2 ad_rsa
 
-ad_lib_sa.o: ad_lib_sa.c ad_lib_sa.h ../share/ad_lib.h ../share/ad_bucketio.h ../share/ad_defs.h
+ad_lib_sa.o: ad_lib_sa.c ad_lib_sa.h $(DIR_H)/ad_lib.h $(DIR_H)/ad_bucketio.h $(DIR_H)/ad_defs.h
 	$(CC) $(FLAGS) -c -o $@ $< $(FLAGS2)
 
 ad_sa1: ad_sa1.c $(DEPS_SA1) $(OBJS_SA1)
