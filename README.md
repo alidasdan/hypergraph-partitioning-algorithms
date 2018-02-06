@@ -89,7 +89,8 @@ Under 'src', type 'make' (or 'gmake') to build each executable under
 its own directory. The executables are all have .x extension:
 ad_fms.x, ad_plm.x, ad_pfm.x, ad_sa1.x, ad_sa2.x, and ad_rsa.x.
 
-The output you expect to see with 'make' is shown in 'doc/make.out'.
+The output you expect to see with 'make' is shown in
+'doc/make_build.out'.
 
 ## HOW TO RUN
 
