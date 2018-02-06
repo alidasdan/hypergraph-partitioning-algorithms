@@ -1,4 +1,4 @@
-hypergraph-partitioning-algorithms
+# hypergraph-partitioning-algorithms
 ==================================
 
 This package contains the multi-way hypergraph partitioning
@@ -89,8 +89,9 @@ Under 'src', type 'make' (or 'gmake') to build each executable under
 its own directory. The executables are all have .x extension:
 ad_fms.x, ad_plm.x, ad_pfm.x, ad_sa1.x, ad_sa2.x, and ad_rsa.x.
 
+The output you expect to see with 'make' is shown in 'doc/make.out'.
 
-# HOW TO RUN
+## HOW TO RUN
 
 Go to the respective directory for an algorithm and type the name of
 one of the executables in your command line to get the usage
@@ -109,11 +110,11 @@ pass_no = 7 Final cutsize = 85 Check cutsize = 85
 ```
 
 This output shows that FMS took 7 passes over the cells of the input
-hypergraph 'hp9' when started with a seed of 123456 (which is needed
-to make the results repeatable). FMS found a cutsize of 85, which is
-correct as FMS and the other programs will check every cutsize they
-report for correctness. That is, each of the executables are self
-validating.
+hypergraph 'hp9' when started with a seed of 123456. Note that
+specifying a seed will make the results repeatable. FMS found a
+cutsize of 85, which is correct as FMS and the other programs will
+check every cutsize they report for correctness. That is, each of the
+executables are self validating.
 
 ## HOW TO TEST
 
@@ -121,10 +122,16 @@ Under 'src', type 'make test' to test each executable on the input
 hypergraphs under the 'input' directory. The result will be a 'pass'
 or a 'fail'.
 
+The output you expect to see with 'make test' is shown in
+'doc/make_test.out'.
+
 ## HOW TO CLEAN
 
 Under 'src', type 'make clean' to clean all temporary files including
 the object files and the executables.
+
+The output you expect to see with 'make clean' is shown in
+'doc/make_clean.out'.
 
 ## INPUT FILE FORMAT
 

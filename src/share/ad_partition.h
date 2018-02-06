@@ -5,7 +5,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
+#include <malloc/malloc.h>
 #include <errno.h>
 #include "ad_random.h"
 #include "ad_fileio.h"

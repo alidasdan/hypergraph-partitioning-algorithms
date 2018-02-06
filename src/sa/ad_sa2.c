@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <malloc.h>
+#include <malloc/malloc.h>
 #include "ad_defs.h"
 #include "ad_random.h"
 #include "ad_fileio.h"
@@ -314,29 +314,29 @@ int main(int argc, char *argv[])
 #endif
 
     /* free memory for all data structures */
-    cfree(cells);
+    free(cells);
     for (int i = 0; i < nocells; i++) {
-        cfree(cells_info[i].mgain);
+        free(cells_info[i].mgain);
     }
-    cfree(cells_info);
+    free(cells_info);
 
     for (int i = 0; i < nonets; i++) {
-        cfree(nets[i].npartdeg);
-        cfree(nets_info[i].npartdeg);
-        cfree(best_nets[i].npartdeg);
+        free(nets[i].npartdeg);
+        free(nets_info[i].npartdeg);
+        free(best_nets[i].npartdeg);
     }
-    cfree(nets);
-    cfree(nets_info);
-    cfree(best_nets);
+    free(nets);
+    free(nets_info);
+    free(best_nets);
 
-    cfree(cnets);
-    cfree(ncells);
+    free(cnets);
+    free(ncells);
 
     for (int i = 0; i < MAX_POP; i++) {
-        cfree(pop[i].chrom);
-        cfree(pop[i].parts);
-        cfree(best_pop[i].chrom);
-        cfree(best_pop[i].parts);
+        free(pop[i].chrom);
+        free(pop[i].parts);
+        free(best_pop[i].chrom);
+        free(best_pop[i].parts);
     }
 
     return (0);
