@@ -61,6 +61,13 @@ int main(int argc, char *argv[])
 
     read_hgraph_size(fname, &nocells, &nonets, &nopins);
 
+    /* validate number of partitions */
+    if (noparts > nocells) {
+        printf("Error: Number of partitions (%d) cannot exceed number of cells (%d).\n",
+               noparts, nocells);
+        exit(1);
+    }
+
     /* alloc memory for all data structures */
     cells_t *cells = (cells_t *) calloc(nocells, sizeof(cells_t));
     assert(cells != NULL);
@@ -170,16 +177,16 @@ int main(int argc, char *argv[])
             int move_possible = select_cell(noparts, scell, parts_info, cells,
                                             partb, cells_info);
 
-            delete_partb_nodes_of_cell(noparts, scell[0].mov_cell_no,
-                                       scell[0].from_part, partb, cells_info);
-
-            /* lock cell */
-            cells_info[scell[0].mov_cell_no].locked = True;
             if (move_possible == True) {
+                delete_partb_nodes_of_cell(noparts, scell[0].mov_cell_no,
+                                           scell[0].from_part, partb, cells_info);
+
+                /* lock cell */
+                cells_info[scell[0].mov_cell_no].locked = True;
                 move_cell(mcells, msize, scell);
                 msize++;
-                update_gains(noparts, max_gain, scell, 
-                             cells, nets, cnets, ncells, nets_info, 
+                update_gains(noparts, max_gain, scell,
+                             cells, nets, cnets, ncells, nets_info,
                              partb, cells_info, pop[0].chrom);
             }   /* if */
             nlocked++;

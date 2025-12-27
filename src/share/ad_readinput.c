@@ -111,10 +111,10 @@ void read_hgraph(char fname[],
     init_nets(nonets, noparts, nets);
 
     /* initialize variables */
-    *max_cweight = -1;
-    *max_nweight = -1;
-    *max_cdeg = -1;
-    *max_ndeg = -1;
+    *max_cweight = 0;  /* default to 0 */
+    *max_nweight = 0;  /* default to 0 for hypergraphs with no nets */
+    *max_cdeg = 0;     /* default to 0 for isolated cells */
+    *max_ndeg = 0;     /* default to 0 for empty nets */
     *totcellsize = 0;
     *totnetsize = 0;
 

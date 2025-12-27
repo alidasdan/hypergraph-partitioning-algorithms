@@ -59,6 +59,13 @@ int main(int argc, char *argv[])
 
     read_hgraph_size(fname, &nocells, &nonets, &nopins);
 
+    /* validate number of partitions */
+    if (noparts > nocells) {
+        printf("Error: Number of partitions (%d) cannot exceed number of cells (%d).\n",
+               noparts, nocells);
+        exit(1);
+    }
+
     /* determine max_noiter based on pfm version */
     /* pfm1: size=max_cells; 
        pfm2: size=max_cells * max_parts; 
