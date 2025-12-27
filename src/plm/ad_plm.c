@@ -118,9 +118,16 @@ int main(int argc, char *argv[])
     corn_t *ncells = (corn_t *) calloc(nopins, sizeof(corn_t));
     assert(ncells != NULL);
 
-    /* partition buckets */
-    partb_t partb[noparts][noparts - 1];  
-    parts_info_t parts_info[noparts]; 
+    /* partition buckets - dynamically allocated */
+    partb_t **partb = (partb_t **) calloc(noparts, sizeof(partb_t *));
+    assert(partb != NULL);
+    for (int i = 0; i < noparts; i++) {
+        partb[i] = (partb_t *) calloc(noparts - 1, sizeof(partb_t));
+        assert(partb[i] != NULL);
+    }
+
+    parts_info_t *parts_info = (parts_info_t *) calloc(noparts, sizeof(parts_info_t));
+    assert(parts_info != NULL);
 
     /* population (w/ one individual!) */
     ind_t pop[MAX_POP];             
@@ -284,7 +291,11 @@ int main(int argc, char *argv[])
         for (int j = 0; j < noparts - 1; ++j) {
             free(partb[i][j].bnode_ptr);
         }
+        free(partb[i]);
     }
+    free(partb);
+
+    free(parts_info);
 
     for (int i = 0; i < MAX_POP; i++) {
         free(pop[i].chrom);

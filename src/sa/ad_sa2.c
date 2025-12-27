@@ -76,6 +76,13 @@ int main(int argc, char *argv[])
 
     read_hgraph_size(fname, &nocells, &nonets, &nopins);
 
+    /* validate number of partitions */
+    if (noparts > nocells) {
+        printf("Error: Number of partitions (%d) cannot exceed number of cells (%d).\n",
+               noparts, nocells);
+        exit(1);
+    }
+
     /* alloc memory for all data structures */
     cells_t *cells = (cells_t *) calloc(nocells, sizeof(cells_t));
     assert(cells != NULL);

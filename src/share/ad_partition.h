@@ -25,7 +25,7 @@ int create_partition(int nocells,
 
 /* copy partition properties to parts_info for temporary use */
 void copy_partition(int noparts,
-                    parts_info_t parts_info[],
+                    parts_info_t *parts_info,
                     ind_t *ind);
 
 /* read a partition prepared beforehand */

@@ -17,15 +17,15 @@ void create_buckets(int bucketsize,
                     int max_gain,
                     eval_t eval[],
                     allele chrom[],
-                    partb_t partb[][noparts - 1],
+                    partb_t **partb,
                     cells_info_t cells_info[]);
 
 /* select a cell to move */
 void select_cell(int noparts,
                  selected_cell_t scell[],
-                 parts_info_t parts_info[],
+                 parts_info_t *parts_info,
                  cells_t cells[],
-                 partb_t partb[][noparts - 1],
+                 partb_t **partb,
                  cells_info_t cells_info[]);
 
 /* move selected cell, and save the move in a file */
@@ -46,7 +46,7 @@ void update_gains(int bucketsize,
                   corn_t cnets[],
                   corn_t ncells[],
                   nets_info_t nets_info[],
-                  partb_t partb[][noparts - 1],
+                  partb_t **partb,
                   cells_info_t cells_info[],
                   allele tchrom[]);
 
@@ -63,7 +63,7 @@ void update1(int flag,
              eval_t eval[],
              nets_t nets[],
              corn_t ncells[],
-             partb_t partb[][noparts - 1],
+             partb_t **partb,
              cells_info_t cells_info[],
              allele tchrom[]);
 
@@ -80,7 +80,7 @@ void update2(int flag,
              eval_t eval[],
              nets_t nets[],
              corn_t ncells[],
-             partb_t partb[][noparts - 1],
+             partb_t **partb,
              cells_info_t cells_info[],
              allele tchrom[]);
 
@@ -95,7 +95,7 @@ void create_partb_nodes_of_cell(int bucketsize,
                                 int cell_no,
                                 int part_no,
                                 eval_t eval[],
-                                partb_t partb[][noparts - 1],
+                                partb_t **partb,
                                 cells_info_t cells_info[]);
 
 /* calculate K and scale factor */
